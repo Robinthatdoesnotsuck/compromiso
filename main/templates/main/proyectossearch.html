@@ -1,0 +1,81 @@
+{% extends 'main/services_base.html'%}
+{% block content%}
+
+        <form method = "post" class = "w-100 h-100 align-middle" action ="#">
+            {% csrf_token %}
+            <div class="container-fluid">
+                <div class="row">
+        <div class = "col-1">
+
+        </div>
+        <div class = "col-6">
+
+            {% for proyecto in institucion.proyectos_set.all %}
+
+            <div class="container" style="padding: 2rem;">
+                <div class="card text-center">
+                    <form class="form-inline" method= "POST">
+                    <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        
+                        <li class="nav-item">
+                        <a class="nav-link active" href="/actividad/{{proyecto.id}}">Ir a Actividades</a>
+                        </li>
+                        <li class="nav-item">
+                            <button value = "solicitar"  name = "solicitar" type="submit" class="btn btn-primary">solicitar</button>
+                        </li>
+                    
+                    </ul>
+                    </div>
+                    
+                    <div class="text-light card-body bg-danger">
+                    <h5 class="card-title">{{proyecto.name}} </h5>
+                    <p class="card-text">{{proyecto.institucion}}</p>
+                    {% csrf_token %}
+                    <input class="form-check-input" type="checkbox" value="clicked" name = "c{{proyecto.id}}" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Solicitar acceso?
+                        </label>
+                    </form>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            {%endfor %}
+        </div>
+        <div class = "col-1">
+
+        </div>
+            <div class = "col-3 text-center" style="padding-top: 2rem;">
+                <h2>Aqui puede solicitar participar en los proyectos que tenga disponible esta institucion ademas de pode revisar sus actividades y las solicitudes que les hayas hecho</h2>
+                <h2>
+                    Revisa tus solicitudes
+                </h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Proyecto</th>
+                          <th scope="col">aprobada</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for peticion in estudiante.peticion_set.all %}
+                        <tr>
+                            <th scope="row">{{peticion.id}}</th>
+                            <td>{{peticion.proyecto}}</td>
+                            <td>{{peticion.aprobar}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            </div>
+        </div>
+        </form>
+        
+{% endblock %}

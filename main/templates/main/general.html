@@ -1,0 +1,59 @@
+
+{% extends 'main/services_base.html'%}
+{% block content%}
+
+        <form method = "post" class = "w-100 h-100 align-middle" action ="#">
+            {% csrf_token %}
+            <div class="container-fluid">
+                <div class="row">
+        <div class = "col-1">
+
+        </div>
+        <div class = "col-3">
+            {% for proyecto in institucion.proyectos_set.all %}
+
+            <div class="container" style="padding: 2rem;">
+                <div class="card text-center">
+                    <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                        <a class="nav-link active" href="/{{proyecto.id}}">Ir a Actividades</a>
+                        </li>
+                        
+                    </ul>
+                    </div>
+                    
+                    <div class="text-light card-body bg-danger">
+                    <h5 class="card-title">{{proyecto.name}} </h5>
+                    <p class="card-text">{{proyecto.institucion}}</p>
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            {%endfor %}
+        </div>
+        <div class = "col-1">
+
+        </div>
+            <div class = "col-3 text-center" style="padding-top: 2rem;">
+                <h2>Agrega un proyecto</h2>
+
+                <form class = "w-100 h-100 align-middle">
+                        <div class="form-group">
+                        <label for="text">Nombre del nuevo proyecto</label>
+                        <input type="text" class="form-control" id="text" name = "text" placeholder="Enter text">
+                        <button type="submit" class="btn btn-primary" name = "nuevoProyecto" value = "nuevoProyecto">agregar nuevo proycto</button>
+                        <button type="submit" class="btn btn-primary" name = "save" value = "save">Save</button>
+                        </div>
+                        
+                </form>
+            </div>
+            
+            </div>
+        </div>
+        </form>
+        
+{% endblock %}

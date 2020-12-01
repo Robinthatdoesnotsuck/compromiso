@@ -1,0 +1,109 @@
+
+{% extends 'main/services_base.html'%}
+{% block content%}
+
+        <form method = "post" class = "w-100 h-100 align-middle" action ="#">
+            {% csrf_token %}
+            <div class="container-fluid">
+                <div class="row">
+        <div class = "col-1">
+
+        </div>
+        <div class = "col-4">
+            {% for actividad in proyectos.actividades_set.all %}
+
+            <div class="container" style="padding: 2rem;">
+                <div class="card text-center">
+                    <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                        <a class="nav-link active" href="/proyectos">Regresar a proyectos</a>
+                        </li>
+                        
+                    </ul>
+                    </div>
+                    {% if actividad.complete == False %}
+                    <div class="text-light card-body bg-danger">
+                    <h5 class="card-title">{{actividad.text}} </h5>
+                    <p class="card-text">{{actividad.proyecto}}</p>
+                    <p class="card-text">Fecha de inicio {{actividad.inicio}}</p>
+                    <p class="card-text">Fecha de finalizacion {{actividad.inicio}}</p>
+                    <p class="card-text">Horas a dar: {{actividad.horas}}</p>
+                        <input class="form-check-input" type="checkbox" value="clicked" name = "c{{actividad.id}}" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            sin completar
+                        </label>
+                    </div>
+                    {% else %}
+                    <div class="text-light card-body bg-success">
+                        <h5 class="card-title">{{actividad.text}} </h5>
+                        <p class="card-text">{{actividad.proyecto}}</p>
+                        <p class="card-text">Fecha de inicio {{actividad.inicio}}</p>
+                        <p class="card-text">Fecha de finalizacion {{actividad.inicio}}</p>
+                        <p class="card-text">Horas a dar: {{actividad.horas}}</p>
+                        <p>Completado</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {%endfor %}
+        </div>
+        <div class = "col-1">
+
+        </div>
+            <div class = "col-3 text-center" style="padding-top: 2rem;">
+                <h2>Agrega una actividad</h2>
+
+                <form class = "w-100 h-100 align-middle">
+                        <div class="form-group">
+                        <label for="text">Enter activity text</label>
+                        <input type="text" class="form-control" id="text" name = "text" placeholder="Enter text">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Fecha de inicio</label>
+                            <input type="date" class="form-control" id="inicio" name = "inicio" placeholder="Fecha de inicio">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Fecha de finalizacion</label>
+                            <input type="date" class="form-control" id="fin" name = "fin" placeholder="Fecha de fin">
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Horas a dar</label>
+                            <input type="number" class="form-control" id="horas" name = "horas" placeholder="Horas">
+                        </div>
+                        <button type="submit" class="btn btn-primary" name = "nuevaActividad" value = "nuevaActividad">agregar actividad al proyecto</button>
+                        <button type="submit" class="btn btn-primary" name = "save" value = "save">Save</button>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Proyecto</th>
+                          <th scope="col">aprobada</th>
+                          <th scope="col"><button type="submit" name = "aprobar" value = "aprobar" class="btn btn-primary">Aprobar</button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for peticion in proyectos.peticion_set.all %}
+                        <tr>
+                            <th scope="row">{{peticion.id}}</th>
+                            <td>{{peticion.estudiante}}</td>
+                            <td>{{peticion.aprobar}}</td>
+                            <td><input class="form-check-input" type="checkbox" value="clicked" name = "p{{peticion.id}}" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    sin aprobar
+                                </label>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            </div>
+            
+            </div>
+        </div>
+        </form>
+        
+{% endblock %}

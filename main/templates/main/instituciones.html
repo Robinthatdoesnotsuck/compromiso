@@ -1,0 +1,32 @@
+{% extends 'main/services_base.html'%}
+{% block content%}
+
+{% for institucion in  instituciones%}
+<div class = "row">
+    <div class = "col-12 text-center" style="padding-top: 2rem;">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="heading{{institucion.id}}">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{institucion.id}}" aria-expanded="true" aria-controls="collapse{{institucion.id}}">
+                        {{institucion.name}}
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapse{{institucion.id}}" class="collapse show" aria-labelledby="heading{{institucion.id}}" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>{{institucion.description}}</p>
+                    <a href="/proyectoser/{{institucion.id}}">Revisar Proyectos</a>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
